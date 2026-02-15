@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-10">
+    <h1 class="text-3xl font-bold mb-2">Private Knowledge Workspace</h1>
+    <p class="text-gray-600">Upload documents, ask questions, and track AI-powered insights.</p>
+</div>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+    <!-- Upload Card -->
+    <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <h2 class="text-xl font-semibold mb-4">Upload Documents</h2>
+        <p class="text-gray-500 mb-4">
+            Add text or PDF files to your private workspace.
+        </p>
+        <a href="/documents/upload/"
+           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Upload
+        </a>
+    </div>
+
+    <!-- Ask Card -->
+    <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <h2 class="text-xl font-semibold mb-4">Ask Questions</h2>
+        <p class="text-gray-500 mb-4">
+            Query your documents using AI.
+        </p>
+        <a href="/ask/"
+           class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Ask Now
+        </a>
+    </div>
+
+    <!-- History Card -->
+    <div class="bg-white shadow-md rounded-xl p-6 text-center">
+        <h2 class="text-xl font-semibold mb-4">View History</h2>
+        <p class="text-gray-500 mb-4">
+            Review the last 5 AI runs.
+        </p>
+        <a href="/history/"
+           class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+            View History
+        </a>
+    </div>
+
+</div>
+
+<div class="mt-10 text-center text-gray-600">
+    <p>Total Documents: <strong>{{ total_documents }}</strong></p>
+    <p>Total Questions Asked: <strong>{{ total_runs }}</strong></p>
+</div>
+{% endblock %}
