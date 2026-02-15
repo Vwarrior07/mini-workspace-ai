@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Workspace AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-gray-900 text-white px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-semibold">Mini Workspace AI</h1>
+        <div class="space-x-6">
+            <a href="/documents/upload/" class="hover:text-blue-400">Upload</a>
+            <a href="/ask/" class="hover:text-blue-400">Ask</a>
+            <a href="/history/" class="hover:text-blue-400">History</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-grow container mx-auto px-6 py-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Status Footer -->
+    <footer class="bg-gray-800 text-white px-6 py-3 text-sm flex justify-between items-center">
+        <span>System Status:</span>
+        <div id="status-indicators" class="flex space-x-4">
+            <span id="backend-status">Backend: ...</span>
+            <span id="db-status">DB: ...</span>
+            <span id="llm-status">LLM: ...</span>
+        </div>
+    </footer>
+
+    <script>
+        fetch("/status/")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("backend-status").innerText = "Backend: " + data.backend;
+                document.getElementById("db-status").innerText = "DB: " + data.database;
+                document.getElementById("llm-status").innerText = "LLM: " + data.llm;
+            })
+            .catch(() => {
+                document.getElementById("backend-status").innerText = "Backend: error";
+                document.getElementById("db-status").innerText = "DB: error";
+                document.getElementById("llm-status").innerText = "LLM: error";
+            });
+    </script>
+
+</body>
+</html>

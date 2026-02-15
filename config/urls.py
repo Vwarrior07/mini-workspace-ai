@@ -22,4 +22,5 @@ urlpatterns = [
     path("documents/", include("documents.urls")),
     path("ask/", include("qa.urls")),
     path("history/", include("runs.urls")),
+    path("status/", include("status.urls")),
 ]

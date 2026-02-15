@@ -1,18 +1,28 @@
-<h2>Ask a Question</h2>
+{% extends "base.html" %}
 
-<form method="post">
-    {% csrf_token %}
-    <input type="text" name="question" placeholder="Enter your question" required>
-    <button type="submit">Ask</button>
-</form>
+{% block content %}
+<div class="bg-white shadow-md rounded-xl p-6 max-w-2xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-4">Ask a Question</h2>
 
-{% if answer %}
-    <h3>Answer:</h3>
-    <p>{{ answer }}</p>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <input type="text" name="question" placeholder="Enter your question"
+               class="w-full border p-2 rounded" required>
+        <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            Ask
+        </button>
+    </form>
 
-    <h4>Source Document:</h4>
-    <p>{{ source_document }}</p>
+    {% if answer %}
+    <div class="mt-6">
+        <h3 class="text-lg font-semibold">Answer</h3>
+        <p class="mt-2 text-gray-700">{{ answer }}</p>
 
-    <h4>Excerpt Used:</h4>
-    <p>{{ excerpt }}</p>
-{% endif %}
+        <div class="mt-4 text-sm text-gray-500">
+            <p><strong>Source:</strong> {{ source_document }}</p>
+            <p><strong>Excerpt:</strong> {{ excerpt }}</p>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

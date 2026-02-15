@@ -1,15 +1,19 @@
-<h2>Last 5 Runs</h2>
+{% extends "base.html" %}
 
-<ul>
+{% block content %}
+<div class="bg-white shadow-md rounded-xl p-6 max-w-3xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-6">Last 5 Runs</h2>
+
     {% for run in runs %}
-        <li>
-            <strong>Question:</strong> {{ run.question }} <br>
-            <strong>Answer:</strong> {{ run.answer }} <br>
-            <strong>Source:</strong> {{ run.source_document }} <br>
-            <strong>Time:</strong> {{ run.created_at }}
-            <hr>
-        </li>
+    <div class="border-b py-4">
+        <p><strong>Question:</strong> {{ run.question }}</p>
+        <p><strong>Answer:</strong> {{ run.answer }}</p>
+        <p class="text-sm text-gray-500">
+            {{ run.created_at }}
+        </p>
+    </div>
     {% empty %}
-        <li>No runs yet.</li>
+    <p>No runs yet.</p>
     {% endfor %}
-</ul>
+</div>
+{% endblock %}
