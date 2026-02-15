@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from documents.models import Document
 from .services import generate_answer
+from runs.models import Run
 
 
 def ask_question(request):
@@ -35,8 +36,20 @@ def ask_question(request):
                 answer = generate_answer(question, context)
                 source_document = best_doc.name
                 excerpt = context[:300]
+                Run.objects.create(
+                question=question,
+                answer=answer,
+                source_document=source_document,
+                excerpt=excerpt
+                )
             else:
                 answer = "No relevant document found."
+                Run.objects.create(
+                question=question,
+                answer=answer,
+                source_document=None,
+                excerpt=None
+                )
 
     return render(request, "qa/ask.html", {
         "answer": answer,
