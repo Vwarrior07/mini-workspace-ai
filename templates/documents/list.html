@@ -1,11 +1,32 @@
-<h2>Uploaded Documents</h2>
+{% extends "base.html" %}
 
-<ul>
-    {% for doc in documents %}
-        <li>{{ doc.name }} - {{ doc.created_at }}</li>
-    {% empty %}
-        <li>No documents uploaded yet.</li>
-    {% endfor %}
-</ul>
+{% block content %}
+<div class="bg-white shadow-md rounded-xl p-6 max-w-3xl mx-auto">
 
-<a href="{% url 'upload_document' %}">Upload New Document</a>
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold">Uploaded Documents</h2>
+        <a href="/documents/upload/"
+           class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Upload New
+        </a>
+    </div>
+
+    {% if documents %}
+        <div class="space-y-4">
+            {% for doc in documents %}
+            <div class="border rounded-lg p-4 bg-gray-50">
+                <p class="font-medium text-gray-800">
+                    {{ doc.name }}
+                </p>
+                <p class="text-sm text-gray-500">
+                    Uploaded on {{ doc.created_at }}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-gray-500">No documents uploaded yet.</p>
+    {% endif %}
+
+</div>
+{% endblock %}
