@@ -5,16 +5,25 @@ client = Groq(api_key=settings.GROQ_API_KEY)
 
 def generate_answer(question, context):
     prompt = f"""
-You are a helpful assistant.
-Answer the question using ONLY the context below.
-If the answer is not in the context, say "Answer not found in documents."
+    You are an expert research assistant.
 
-Context:
-{context}
+    Your task:
+    - Carefully read the provided context.
+    - Provide a clear, well-structured answer.
+    - Use complete sentences.
+    - Include important supporting details from the context.
+    - If multiple points exist, organize them in bullet points.
+    - Do NOT make up information.
+    - If the answer is not found in the context, respond with:
+    "Answer not found in documents."
 
-Question:
-{question}
-"""
+    Context:
+    {context}
+
+    Question:
+    {question}
+    """
+
 
     try:
         response = client.chat.completions.create(
@@ -22,7 +31,7 @@ Question:
             messages=[
                 {"role": "user", "content": prompt}
             ],
-            temperature=0
+            temperature=0.4
         )
 
         return response.choices[0].message.content
