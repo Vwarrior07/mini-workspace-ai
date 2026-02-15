@@ -1,0 +1,15 @@
+<h2>Last 5 Runs</h2>
+
+<ul>
+    {% for run in runs %}
+        <li>
+            <strong>Question:</strong> {{ run.question }} <br>
+            <strong>Answer:</strong> {{ run.answer }} <br>
+            <strong>Source:</strong> {{ run.source_document }} <br>
+            <strong>Time:</strong> {{ run.created_at }}
+            <hr>
+        </li>
+    {% empty %}
+        <li>No runs yet.</li>
+    {% endfor %}
+</ul>
