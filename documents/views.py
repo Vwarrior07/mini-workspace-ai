@@ -1,9 +1,10 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.shortcuts import render, redirect
 from .forms import DocumentUploadForm
 from .models import Document
+
+from pypdf import PdfReader
+import io
 
 def upload_document(request):
     error = None
@@ -13,18 +14,33 @@ def upload_document(request):
 
         if form.is_valid():
             uploaded_file = request.FILES["file"]
+            filename = uploaded_file.name
 
-            if not uploaded_file.name.endswith(".txt"):
-                error = "Only .txt files are allowed."
-            else:
+            if filename.endswith(".txt"):
                 content = uploaded_file.read().decode("utf-8")
 
-                Document.objects.create(
-                    name=uploaded_file.name,
-                    content=content
-                )
+            elif filename.endswith(".pdf"):
+                pdf_file = io.BytesIO(uploaded_file.read())
+                reader = PdfReader(pdf_file)
+                content = ""
 
-                return redirect("document_list")
+                for page in reader.pages:
+                    content += page.extract_text() or ""
+
+            else:
+                error = "Only .txt and .pdf files are allowed."
+                return render(request, "documents/upload.html", {
+                    "form": form,
+                    "error": error
+                })
+
+            Document.objects.create(
+                name=filename,
+                content=content
+            )
+
+            return redirect("document_list")
+
     else:
         form = DocumentUploadForm()
 
@@ -32,7 +48,6 @@ def upload_document(request):
         "form": form,
         "error": error
     })
-
 
 def document_list(request):
     documents = Document.objects.all().order_by("-created_at")
