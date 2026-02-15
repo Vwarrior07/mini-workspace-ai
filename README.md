@@ -114,7 +114,9 @@ python manage.py runserver
 ---
 
 ## 🌍 Production Deployment (Render)
-
+```bash
+https://mini-workspace-ai.onrender.com
+```
 ### Required Environment Variables
 ```bash
 DB_NAME=
