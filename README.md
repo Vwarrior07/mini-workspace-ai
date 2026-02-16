@@ -8,7 +8,7 @@ This project was built as part of a build task to demonstrate backend architectu
 
 ## 🚀 Live Demo
 
-🔗 Live URL: (Add your Render link here after deployment)
+🔗 Live URL: https://mini-workspace-ai.onrender.com
 
 ---
 
